@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: peptideshop
+    env: node
+    repo: https://github.com/SVELASQUEZSALDARRIAGA/peptideshop
+    branch: main
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    healthCheckPath: /api/config
+    envVars:
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_PUBLISHABLE_KEY
+        sync: false
+      - key: ACCESS_TOKEN
+        value: Pep2026
+      - key: SESSION_SECRET
+        value: peptide-secret
