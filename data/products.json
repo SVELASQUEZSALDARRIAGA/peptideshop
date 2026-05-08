@@ -1,0 +1,374 @@
+[
+  {
+    "id": 1,
+    "name": "BPC-157",
+    "fullName": "Body Protective Compound 157",
+    "category": "Regeneración",
+    "price": 59.99,
+    "originalPrice": 79.99,
+    "rating": 4.9,
+    "reviews": 247,
+    "badge": "MÁS VENDIDO",
+    "badgeColor": "#ff6b35",
+    "color": ["#1a1a3e", "#0d0d2b"],
+    "description": "El BPC-157 es un péptido de origen natural conocido por sus extraordinarias propiedades regenerativas. Acelera la curación de tejidos musculares, tendones, ligamentos y el sistema gastrointestinal.",
+    "benefits": [
+      "Acelera la recuperación de lesiones musculares y tendinosas",
+      "Repara la mucosa gastrointestinal",
+      "Reduce la inflamación sistémica",
+      "Promueve la angiogénesis (formación de nuevos vasos sanguíneos)",
+      "Protege el hígado y el sistema nervioso"
+    ],
+    "usage": "Dosis recomendada: 250-500 mcg dos veces al día. Administración subcutánea. Ciclo recomendado: 4-6 semanas.",
+    "specs": {
+      "Presentación": "Vial de 5mg liofilizado",
+      "Pureza": ">99% (HPLC)",
+      "Administración": "Subcutánea / Oral",
+      "Almacenamiento": "2-8°C (refrigerado)",
+      "Vida media": "4-6 horas",
+      "Origen": "Síntesis de laboratorio GMP"
+    },
+    "stock": 50
+  },
+  {
+    "id": 2,
+    "name": "TB-500",
+    "fullName": "Thymosin Beta-4",
+    "category": "Regeneración",
+    "price": 74.99,
+    "originalPrice": 94.99,
+    "rating": 4.8,
+    "reviews": 189,
+    "badge": "TOP",
+    "badgeColor": "#2ecc71",
+    "color": ["#16213e", "#0f3460"],
+    "description": "TB-500 (Timósina Beta-4) es un potente péptido reparador que regula la actina, esencial para la estructura celular y la regeneración de tejidos. Ideal para lesiones crónicas y recuperación deportiva.",
+    "benefits": [
+      "Acelera la recuperación de lesiones musculares",
+      "Reduce la inflamación y el dolor articular",
+      "Estimula el crecimiento de nuevos vasos sanguíneos",
+      "Mejora la flexibilidad y movilidad",
+      "Regula la respuesta inmune"
+    ],
+    "usage": "Dosis recomendada: 2.5-5 mg por semana, dividida en 2-3 dosis. Administración subcutánea. Ciclo: 4-6 semanas.",
+    "specs": {
+      "Presentación": "Vial de 10mg liofilizado",
+      "Pureza": ">99% (HPLC)",
+      "Administración": "Subcutánea",
+      "Almacenamiento": "2-8°C (refrigerado)",
+      "Vida media": "2-4 horas",
+      "Origen": "Síntesis de laboratorio GMP"
+    },
+    "stock": 35
+  },
+  {
+    "id": 3,
+    "name": "Semaglutide",
+    "fullName": "Semaglutide (GLP-1 Agonist)",
+    "category": "Pérdida de Peso",
+    "price": 129.99,
+    "originalPrice": 169.99,
+    "rating": 4.9,
+    "reviews": 312,
+    "badge": "TENDENCIA",
+    "badgeColor": "#e74c3c",
+    "color": ["#0f3460", "#1a1a2e"],
+    "description": "Semaglutide es un agonista del receptor GLP-1 de última generación, revolucionario para la pérdida de peso significativa y el control metabólico. Regula el apetito y mejora la sensibilidad a la insulina.",
+    "benefits": [
+      "Pérdida de peso sostenida (15-20% del peso corporal)",
+      "Supresión del apetito y reducción de antojos",
+      "Mejora el control glucémico",
+      "Reduce el riesgo cardiovascular",
+      "Dosificación semanal conveniente"
+    ],
+    "usage": "Dosis inicial: 0.25 mg una vez por semana durante 4 semanas. Incrementar gradualmente hasta 2.4 mg/semana. Administración subcutánea.",
+    "specs": {
+      "Presentación": "Vial de 5mg (múltiples dosis)",
+      "Pureza": ">99% (HPLC)",
+      "Administración": "Subcutánea semanal",
+      "Almacenamiento": "2-8°C (refrigerado)",
+      "Vida media": "7 días",
+      "Origen": "Síntesis de laboratorio GMP"
+    },
+    "stock": 25
+  },
+  {
+    "id": 4,
+    "name": "CJC-1295 + Ipamorelin",
+    "fullName": "CJC-1295 con Ipamorelin Stack",
+    "category": "Anti-Envejecimiento",
+    "price": 89.99,
+    "originalPrice": 119.99,
+    "rating": 4.8,
+    "reviews": 178,
+    "badge": "STACK",
+    "badgeColor": "#9b59b6",
+    "color": ["#2c3e50", "#1a1a2e"],
+    "description": "El stack CJC-1295 + Ipamorelin es la combinación sinérgica más potente para estimular la liberación natural de la hormona del crecimiento. Resultados superiores en anti-envejecimiento, composición corporal y recuperación.",
+    "benefits": [
+      "Aumento significativo de GH endógena",
+      "Mejora la calidad del sueño profundo",
+      "Reduce la grasa corporal y aumenta masa magra",
+      "Revitaliza la piel y reduce arrugas",
+      "Fortalece el sistema inmunológico"
+    ],
+    "usage": "Dosis: 200 mcg CJC-1295 + 300 mcg Ipamorelin, 1-2 veces al día. Administración subcutánea. Ayuno 30 min antes y después.",
+    "specs": {
+      "Presentación": "Vial combo: 5mg CJC + 5mg Ipamorelin",
+      "Pureza": ">99% (HPLC)",
+      "Administración": "Subcutánea",
+      "Almacenamiento": "2-8°C (refrigerado)",
+      "Vida media": "30 min (Ipamorelin), 6 días (CJC)",
+      "Origen": "Síntesis de laboratorio GMP"
+    },
+    "stock": 40
+  },
+  {
+    "id": 5,
+    "name": "Melanotan II",
+    "fullName": "Melanotan II",
+    "category": "Estética",
+    "price": 49.99,
+    "originalPrice": 64.99,
+    "rating": 4.7,
+    "reviews": 215,
+    "badge": "POPULAR",
+    "badgeColor": "#e67e22",
+    "color": ["#1a1a2e", "#2d1b00"],
+    "description": "Melanotan II es un péptido sintético que estimula la producción de melanina, proporcionando un bronceado natural sin necesidad de exposición solar prolongada. Además, tiene efectos positivos en la libido.",
+    "benefits": [
+      "Bronceado natural sin rayos UV dañinos",
+      "Aumento significativo de la libido",
+      "Protección solar natural (aumento de melanina)",
+      "Efecto antioxidante sistémico",
+      "Resultados visibles en pocos días"
+    ],
+    "usage": "Dosis inicial: 0.25-0.5 mg al día durante 2 semanas. Mantenimiento: 1-2 mg por semana. Administración subcutánea.",
+    "specs": {
+      "Presentación": "Vial de 10mg liofilizado",
+      "Pureza": ">99% (HPLC)",
+      "Administración": "Subcutánea",
+      "Almacenamiento": "2-8°C (refrigerado)",
+      "Vida media": "36 horas",
+      "Origen": "Síntesis de laboratorio GMP"
+    },
+    "stock": 60
+  },
+  {
+    "id": 6,
+    "name": "AOD-9604",
+    "fullName": "AOD-9604 (Fragmento GH)",
+    "category": "Pérdida de Peso",
+    "price": 69.99,
+    "originalPrice": 89.99,
+    "rating": 4.6,
+    "reviews": 143,
+    "badge": "OFERTA",
+    "badgeColor": "#e74c3c",
+    "color": ["#1b4332", "#0d2818"],
+    "description": "AOD-9604 es un fragmento modificado de la hormona del crecimiento que estimula la lipólisis (quema de grasa) sin afectar los niveles de azúcar en sangre. Ideal para reducción de grasa localizada.",
+    "benefits": [
+      "Quema de grasa localizada y sistémica",
+      "Acelera el metabolismo lipídico",
+      "Preserva la masa muscular durante déficit calórico",
+      "Mejora la regeneración articular",
+      "Sin efectos secundarios metabólicos"
+    ],
+    "usage": "Dosis: 300-500 mcg al día, dividido en 1-2 dosis. Administración subcutánea. Ciclo recomendado: 8-12 semanas.",
+    "specs": {
+      "Presentación": "Vial de 5mg liofilizado",
+      "Pureza": ">99% (HPLC)",
+      "Administración": "Subcutánea",
+      "Almacenamiento": "2-8°C (refrigerado)",
+      "Vida media": "2 horas",
+      "Origen": "Síntesis de laboratorio GMP"
+    },
+    "stock": 45
+  },
+  {
+    "id": 7,
+    "name": "MOTS-C",
+    "fullName": "Mitochondrial Open Reading Frame of the Twelve S rRNA-C",
+    "category": "Energía y Metabolismo",
+    "price": 84.99,
+    "originalPrice": 109.99,
+    "rating": 4.7,
+    "reviews": 98,
+    "badge": "NUEVO",
+    "badgeColor": "#3498db",
+    "color": ["#1a0a3e", "#2d1b69"],
+    "description": "MOTS-C es un péptido mitocondrial que regula el metabolismo energético, mejora la sensibilidad a la insulina y promueve la longevidad celular. Actúa como mimético del ejercicio a nivel molecular.",
+    "benefits": [
+      "Aumenta la producción de energía celular (ATP)",
+      "Mejora la sensibilidad a la insulina",
+      "Actúa como mimético del ejercicio",
+      "Regula el metabolismo óseo",
+      "Promueve la longevidad y salud mitocondrial"
+    ],
+    "usage": "Dosis: 10-20 mg una vez por semana, o 5 mg 2-3 veces por semana. Administración subcutánea.",
+    "specs": {
+      "Presentación": "Vial de 10mg liofilizado",
+      "Pureza": ">99% (HPLC)",
+      "Administración": "Subcutánea",
+      "Almacenamiento": "2-8°C (refrigerado)",
+      "Vida media": "3-5 horas",
+      "Origen": "Síntesis de laboratorio GMP"
+    },
+    "stock": 20
+  },
+  {
+    "id": 8,
+    "name": "NAD+",
+    "fullName": "Nicotinamide Adenine Dinucleotide",
+    "category": "Anti-Envejecimiento",
+    "price": 99.99,
+    "originalPrice": 139.99,
+    "rating": 4.9,
+    "reviews": 156,
+    "badge": "PREMIUM",
+    "badgeColor": "#f1c40f",
+    "color": ["#1a1a2e", "#3d2e00"],
+    "description": "NAD+ es una coenzima esencial para la producción de energía celular y la reparación del ADN. Fundamental para ralentizar el proceso de envejecimiento y mejorar la función cognitiva y metabólica.",
+    "benefits": [
+      "Aumenta los niveles de energía celular",
+      "Repara el daño en el ADN",
+      "Mejora la función cognitiva y claridad mental",
+      "Ralentiza el proceso de envejecimiento",
+      "Optimiza el metabolismo energético"
+    ],
+    "usage": "Dosis: 250-500 mg al día, o 500-1000 mg 2-3 veces por semana. Administración subcutánea o intramuscular.",
+    "specs": {
+      "Presentación": "Vial de 500mg",
+      "Pureza": ">99.5% (HPLC)",
+      "Administración": "Subcutánea / IM",
+      "Almacenamiento": "2-8°C (refrigerado)",
+      "Vida media": "2-3 horas",
+      "Origen": "Síntesis de laboratorio GMP"
+    },
+    "stock": 30
+  },
+  {
+    "id": 9,
+    "name": "GHK-Cu",
+    "fullName": "Copper Peptide (GHK-Cu)",
+    "category": "Estética",
+    "price": 44.99,
+    "originalPrice": 59.99,
+    "rating": 4.8,
+    "reviews": 203,
+    "badge": "TOP VENTAS",
+    "badgeColor": "#e91e63",
+    "color": ["#2d1b1b", "#4a1a1a"],
+    "description": "GHK-Cu (péptido de cobre) es un potente agente regenerador cutáneo que estimula la producción de colágeno, elastina y glucosaminoglicanos. Revolucionario para el rejuvenecimiento facial y capilar.",
+    "benefits": [
+      "Estimula la producción de colágeno y elastina",
+      "Reduce arrugas y líneas de expresión",
+      "Promueve el crecimiento capilar",
+      "Acelera la cicatrización de heridas",
+      "Potente acción antioxidante"
+    ],
+    "usage": "Uso tópico: 2-4 gotas dos veces al día. Inyectable: 1-2 mg al día subcutáneo. Ciclo: 12 semanas para resultados óptimos.",
+    "specs": {
+      "Presentación": "Vial de 50mg (uso tópico e inyectable)",
+      "Pureza": ">99% (HPLC)",
+      "Administración": "Tópica / Subcutánea",
+      "Almacenamiento": "2-8°C (refrigerado) o temperatura ambiente",
+      "Vida media": "24 horas",
+      "Origen": "Síntesis de laboratorio GMP"
+    },
+    "stock": 55
+  },
+  {
+    "id": 10,
+    "name": "Tirzepatide",
+    "fullName": "Tirzepatide (GIP/GLP-1 Agonist)",
+    "category": "Pérdida de Peso",
+    "price": 149.99,
+    "originalPrice": 199.99,
+    "rating": 4.9,
+    "reviews": 267,
+    "badge": "MÁS VENDIDO",
+    "badgeColor": "#ff6b35",
+    "color": ["#3d0c11", "#1a0508"],
+    "description": "Tirzepatide es el primer agonista dual GIP/GLP-1, considerado el fármaco más potente para pérdida de peso en la actualidad. Resultados revolucionarios con pérdidas de hasta 25% del peso corporal.",
+    "benefits": [
+      "Pérdida de peso superior (hasta 25% del peso)",
+      "Control glucémico excepcional",
+      "Supresión del apetito prolongada",
+      "Mejora integral del perfil metabólico",
+      "Dosificación semanal"
+    ],
+    "usage": "Dosis inicial: 2.5 mg una vez por semana. Incrementar 2.5 mg cada 4 semanas hasta 15 mg/semana. Administración subcutánea.",
+    "specs": {
+      "Presentación": "Vial de 15mg (dosis múltiples)",
+      "Pureza": ">99% (HPLC)",
+      "Administración": "Subcutánea semanal",
+      "Almacenamiento": "2-8°C (refrigerado)",
+      "Vida media": "5 días",
+      "Origen": "Síntesis de laboratorio GMP"
+    },
+    "stock": 15
+  },
+  {
+    "id": 11,
+    "name": "Sermorelin",
+    "fullName": "Sermorelin (GHRH Analog)",
+    "category": "Anti-Envejecimiento",
+    "price": 79.99,
+    "originalPrice": 99.99,
+    "rating": 4.7,
+    "reviews": 134,
+    "badge": "RECOMENDADO",
+    "badgeColor": "#2ecc71",
+    "color": ["#0d3b2e", "#061f17"],
+    "description": "Sermorelin es un análogo de GHRH que estimula la liberación natural de la hormona del crecimiento por la glándula pituitaria. Excelente perfil de seguridad para terapia anti-envejecimiento a largo plazo.",
+    "benefits": [
+      "Estimula la producción natural de GH",
+      "Mejora la densidad ósea y masa muscular",
+      "Reduce la grasa corporal",
+      "Mejora la calidad del sueño",
+      "Perfil de seguridad excepcional"
+    ],
+    "usage": "Dosis: 200-300 mcg al día antes de dormir. Administración subcutánea. Ayuno 2 horas antes de dormir.",
+    "specs": {
+      "Presentación": "Vial de 6mg liofilizado",
+      "Pureza": ">99% (HPLC)",
+      "Administración": "Subcutánea",
+      "Almacenamiento": "2-8°C (refrigerado)",
+      "Vida media": "20 minutos",
+      "Origen": "Síntesis de laboratorio GMP"
+    },
+    "stock": 38
+  },
+  {
+    "id": 12,
+    "name": "PT-141",
+    "fullName": "Bremelanotide (PT-141)",
+    "category": "Bienestar",
+    "price": 54.99,
+    "originalPrice": 69.99,
+    "rating": 4.6,
+    "reviews": 167,
+    "badge": "POPULAR",
+    "badgeColor": "#9b59b6",
+    "color": ["#2d1b4e", "#1a0a2e"],
+    "description": "PT-141 (Bremelanotide) es un péptido innovador desarrollado para tratar el deseo sexual hipoactivo en ambos géneros. Actúa directamente sobre el sistema nervioso central sin afectar el sistema cardiovascular.",
+    "benefits": [
+      "Aumenta el deseo sexual en hombres y mujeres",
+      "Mejora la función eréctil sin estimulación física",
+      "Actúa en 30-60 minutos",
+      "Sin efectos secundarios cardiovasculares",
+      "Efecto bronceador adicional"
+    ],
+    "usage": "Dosis: 0.5-1 mg según sea necesario, 30-45 minutos antes de la actividad. Administración subcutánea. Máximo 2-3 veces por semana.",
+    "specs": {
+      "Presentación": "Vial de 10mg liofilizado",
+      "Pureza": ">99% (HPLC)",
+      "Administración": "Subcutánea",
+      "Almacenamiento": "2-8°C (refrigerado)",
+      "Vida media": "2-3 horas",
+      "Origen": "Síntesis de laboratorio GMP"
+    },
+    "stock": 42
+  }
+]

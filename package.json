@@ -1,0 +1,18 @@
+{
+  "name": "peptide-shop",
+  "version": "1.0.0",
+  "description": "Tienda online de péptidos de alta calidad",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "stripe": "^14.14.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "uuid": "^9.0.0",
+    "express-session": "^1.17.3"
+  }
+}

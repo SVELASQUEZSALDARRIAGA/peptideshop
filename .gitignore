@@ -1,0 +1,9 @@
+node_modules/
+.env
+.DS_Store
+*.log
+launcher.vbs
+start.ps1
+start_server.bat
+run.ps1
+start.js

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PeptideShop - Péptidos de Alta Calidad</title>
+  <meta name="description" content="Tienda líder en péptidos de investigación para Colombia y Latinoamérica. Pureza >99% HPLC. Laboratorios certificados GMP. Envíos discretos. Pagos en USDT/USDC.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <div class="announcement-bar">
+    <p>🇨🇴 Envíos a COLOMBIA y toda Latinoamérica | 💰 Pagos con USDT/USDC (cripto) | 📦 Embalaje discreto garantizado</p>
+  </div>
+
+  <header>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="#" class="nav-logo">
+          <span class="logo-icon">&#9883;</span>
+          <span class="logo-text">Peptide<span>Shop</span></span>
+        </a>
+        <div class="nav-search">
+          <input type="text" id="searchInput" placeholder="Buscar péptidos..." aria-label="Buscar productos">
+          <button class="search-btn" aria-label="Buscar">&#128269;</button>
+        </div>
+        <div class="nav-actions">
+          <a href="#features" class="nav-link">Beneficios</a>
+          <a href="#products" class="nav-link">Catálogo</a>
+          <a href="#faq" class="nav-link">FAQ</a>
+          <a href="#contact" class="nav-link">Contacto</a>
+          <button class="cart-btn" id="cartBtn" aria-label="Carrito de compras">
+            &#128722; <span class="cart-count" id="cartCount">0</span>
+          </button>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menú">&#9776;</button>
+      </div>
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="#features" class="mobile-link">Beneficios</a>
+        <a href="#products" class="mobile-link">Catálogo</a>
+        <a href="#faq" class="mobile-link">FAQ</a>
+        <a href="#contact" class="mobile-link">Contacto</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <span class="hero-badge">&#9733; Laboratorio Certificado GMP</span>
+        <h1>Péptidos de <span>Alta Pureza</span> para Resultados Reales</h1>
+        <p>Descubre nuestra colección premium de péptidos con pureza garantizada >99% HPLC. Investigación, regeneración y bienestar avanzado.</p>
+        <div class="hero-buttons">
+          <a href="#products" class="btn btn-primary">Ver Catálogo &#8595;</a>
+          <a href="#features" class="btn btn-secondary">Saber Más &#8594;</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><span>12+</span> Péptidos Premium</div>
+          <div class="stat"><span>>99%</span> Pureza HPLC</div>
+            <div class="stat"><span>5000+</span> Clientes Satisfechos</div>
+          <div class="stat"><span>🇨🇴</span> Envío a Colombia/LATAM</div>
+          <div class="stat"><span>GMP</span> Laboratorio Certificado</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">¿Por qué elegirnos?</span>
+          <h2>Excelencia en cada <span>molécula</span></h2>
+          <p>Calidad farmacéutica, transparencia total y compromiso con tu satisfacción.</p>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">&#9881;</div>
+            <h3>Pureza Garantizada >99%</h3>
+            <p>Cada lote es analizado mediante HPLC y espectrometría de masas. Resultados disponibles bajo petición.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">&#9888;</div>
+            <h3>Laboratorio Certificado GMP</h3>
+            <p>Producido en instalaciones GMP certificadas con los más altos estándares de calidad farmacéutica.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">&#128230;</div>
+            <h3>Envíos a Colombia y LATAM</h3>
+            <p>Embalaje anónimo sin referencias al contenido. Envíos rápidos y seguros a Colombia y toda Latinoamérica con seguimiento.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">&#128179;</div>
+            <h3>Pago con Cripto y más</h3>
+            <p>Aceptamos USDT, USDC (Binance, TRC20), transferencia bancaria y pagos en COP/USD. Todos los métodos están protegidos.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">&#129309;</div>
+            <h3>Soporte por WhatsApp</h3>
+            <p>Atención personalizada vía WhatsApp, chat en vivo 24/7 y email. Resolvemos todas tus dudas antes de comprar.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">&#128260;</div>
+            <h3>Garantía de Satisfacción</h3>
+            <p>14 días de garantía de devolución. Si no estás conforme, te reembolsamos o cambiamos el producto.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="products" id="products">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Catálogo Premium</span>
+          <h2>Nuestros <span>Péptidos</span></h2>
+          <p>Péptidos de investigación de la más alta calidad para tus objetivos.</p>
+        </div>
+        <div class="product-filters">
+          <button class="filter-btn active" data-filter="all">Todos</button>
+          <button class="filter-btn" data-filter="Regeneración">Regeneración</button>
+          <button class="filter-btn" data-filter="Pérdida de Peso">Pérdida de Peso</button>
+          <button class="filter-btn" data-filter="Anti-Envejecimiento">Anti-Envejecimiento</button>
+          <button class="filter-btn" data-filter="Estética">Estética</button>
+          <button class="filter-btn" data-filter="Energía y Metabolismo">Energía</button>
+          <button class="filter-btn" data-filter="Bienestar">Bienestar</button>
+        </div>
+        <div class="products-grid" id="productsGrid"></div>
+      </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Testimonios</span>
+          <h2>Lo que dicen nuestros <span>clientes</span></h2>
+        </div>
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p>"El BPC-157 me ha cambiado la vida. Después de una lesión crónica en el hombro que no mejoraba con nada, en 4 semanas noté una mejoría increíble. Calidad excepcional."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">M</div>
+              <div><strong>Miguel Ángel</strong><span>Verificado &#10003;</span></div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p>"Llevo 3 meses con Semaglutide y he perdido 14kg. Los resultados son reales. El envío fue rápido y discreto. El chat resolvió todas mis dudas antes de comprar."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">L</div>
+              <div><strong>Laura G.</strong><span>Verificado &#10003;</span></div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p>"El stack CJC + Ipamorelin es increíble. Duermo profundamente, me despierto renovado y mi composición corporal ha mejorado notablemente. Producto 100% recomendado."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">C</div>
+              <div><strong>Carlos R.</strong><span>Verificado &#10003;</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq" id="faq">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">FAQ</span>
+          <h2>Preguntas <span>Frecuentes</span></h2>
+          <p>Resolvemos las dudas más comunes sobre nuestros productos.</p>
+        </div>
+        <div class="faq-grid">
+          <div class="faq-item">
+            <div class="faq-question">¿Son legales los péptidos? <span class="faq-toggle">+</span></div>
+            <div class="faq-answer">Los péptidos que ofrecemos son para fines de investigación y estudio en laboratorio. No están destinados al consumo humano. El comprador es responsable del uso que dé al producto según las leyes de su país.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">¿Cómo se reconstituyen los péptidos? <span class="faq-toggle">+</span></div>
+            <div class="faq-answer">Generalmente se reconstituyen con agua bacteriostática o solución salina estéril. La cantidad dependerá de la dosis deseada. Cada producto incluye instrucciones específicas. Puedes preguntar a nuestro chatbot para más detalles.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">¿Cuánto tiempo tarda el envío a Colombia/LATAM? <span class="faq-toggle">+</span></div>
+            <div class="faq-answer">Colombia: 3-7 días hábiles. Resto de Latinoamérica: 5-12 días hábiles según el país. Todos los envíos incluyen número de seguimiento y embalaje discreto garantizado. Envío GRATIS en pedidos superiores a 200 USD.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">¿Cómo sé que el producto es de calidad? <span class="faq-toggle">+</span></div>
+            <div class="faq-answer">Todos nuestros péptidos son producidos en laboratorios certificados GMP. Cada lote es analizado mediante HPLC y espectrometría de masas, garantizando pureza >99%. Proporcionamos certificados de análisis bajo petición.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">¿Aceptan devoluciones? <span class="faq-toggle">+</span></div>
+            <div class="faq-answer">Sí, ofrecemos 14 días de garantía de devolución. Si el producto está sellado y sin usar, realizamos un reembolso completo. Si hay algún problema de calidad, reemplazamos el producto sin coste adicional.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">¿Qué métodos de pago aceptan? <span class="faq-toggle">+</span></div>
+            <div class="faq-answer">Aceptamos múltiples métodos para Colombia y LATAM:<br><br>
+            💰 <b>Criptomonedas:</b> USDT (TRC20), USDC (TRC20/ERC20), Bitcoin<br>
+            🏦 <b>Transferencia bancaria</b> en Colombia (COP)<br>
+            💳 <b>Tarjetas</b> Visa, Mastercard, American Express (vía Stripe)<br>
+            📱 <b>Nequi, Daviplata, Bancolombia</b><br><br>
+            Todos los pagos están protegidos con encriptación de grado bancario.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="container">
+        <div class="contact-wrapper">
+          <div class="contact-info">
+            <span class="section-subtitle">Contacto</span>
+            <h2>Estamos aquí para <span>ayudarte</span></h2>
+            <p>¿Tienes preguntas sobre nuestros productos o necesitas asesoramiento? Nuestro equipo de expertos está listo para ayudarte.</p>
+            <div class="contact-details">
+              <div class="contact-item">
+                <span class="contact-icon">&#9993;</span>
+                <div>
+                  <strong>Email</strong>
+                  <span>info@peptideshop.com</span>
+                </div>
+              </div>
+              <div class="contact-item">
+                <span class="contact-icon">&#9742;</span>
+                <div>
+                  <strong>WhatsApp</strong>
+                  <span>+57 300 123 4567</span>
+                </div>
+              </div>
+              <div class="contact-item">
+                <span class="contact-icon">&#128205;</span>
+                <div>
+                  <strong>Oficina</strong>
+                  <span>Bogotá, Colombia</span>
+                </div>
+              </div>
+              <div class="contact-item">
+                <span class="contact-icon">&#9883;</span>
+                <div>
+                  <strong>USDT/USDC</strong>
+                  <span>Aceptamos cripto en todos los pedidos</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <form class="contact-form" id="contactForm">
+            <input type="text" placeholder="Tu nombre" required>
+            <input type="email" placeholder="Tu email" required>
+            <textarea placeholder="Tu mensaje..." rows="5" required></textarea>
+            <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="newsletter">
+      <div class="container">
+        <div class="newsletter-content">
+          <h2>Mantente <span>informado</span></h2>
+          <p>Suscríbete para recibir novedades, ofertas exclusivas y guías sobre péptidos.</p>
+          <form class="newsletter-form" id="newsletterForm">
+            <input type="email" placeholder="Tu mejor email" required>
+            <button type="submit" class="btn btn-primary">Suscribirme &#8594;</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo">
+            <span class="logo-icon">&#9883;</span>
+            <span class="logo-text">Peptide<span>Shop</span></span>
+          </div>
+          <p>Tu tienda de confianza para péptidos de investigación de alta pureza en Colombia y Latinoamérica. Calidad GMP, envío discreto, pago en cripto.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Productos</h4>
+          <a href="#products">Catálogo</a>
+          <a href="#">Ofertas</a>
+          <a href="#">Novedades</a>
+          <a href="#">Más vendidos</a>
+        </div>
+        <div class="footer-links">
+          <h4>Soporte</h4>
+          <a href="#faq">FAQ</a>
+          <a href="#contact">Contacto</a>
+          <a href="#">Envíos</a>
+          <a href="#">Devoluciones</a>
+        </div>
+        <div class="footer-links">
+          <h4>Legal</h4>
+          <a href="#">Términos y Condiciones</a>
+          <a href="#">Política de Privacidad</a>
+          <a href="#">Aviso Legal</a>
+          <a href="#">Política de Cookies</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 PeptideShop Colombia. Todos los derechos reservados. Envíos a Colombia y Latinoamérica. Para fines de investigación únicamente.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3>Tu Carrito</h3>
+      <button class="cart-close" id="cartClose">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty">
+        <span class="cart-empty-icon">&#128722;</span>
+        <p>Tu carrito está vacío</p>
+        <p class="cart-empty-sub">Explora nuestro catálogo y agrega productos</p>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-total">
+        <span>Total</span>
+        <span class="cart-total-amount" id="cartTotal">0.00 USD</span>
+      </div>
+      <button class="btn btn-primary btn-checkout" id="checkoutBtn">Proceder al Pago</button>
+    </div>
+  </aside>
+
+  <div class="modal" id="productModal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+      <button class="modal-close">&times;</button>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <div class="checkout-modal" id="checkoutModal">
+    <div class="checkout-overlay"></div>
+    <div class="checkout-content">
+      <button class="checkout-close" id="checkoutModalClose">&times;</button>
+      <h2>Finalizar Pedido</h2>
+      <p>Completa tu pago de forma segura</p>
+      <div class="checkout-summary" id="checkoutSummary"></div>
+      <div class="payment-methods" id="paymentMethods"></div>
+    </div>
+  </div>
+
+  <div class="chatbot" id="chatbot">
+    <div class="chatbot-toggle" id="chatbotToggle">
+      <span class="chatbot-icon">&#128172;</span>
+      <span class="chatbot-status"></span>
+    </div>
+    <div class="chatbot-window" id="chatbotWindow">
+      <div class="chatbot-header">
+        <div class="chatbot-header-info">
+          <div class="chatbot-avatar">&#9883;</div>
+          <div>
+            <strong>Asistente PeptideShop</strong>
+            <span class="chatbot-header-status">En línea</span>
+          </div>
+        </div>
+        <button class="chatbot-close" id="chatbotClose">&times;</button>
+      </div>
+      <div class="chatbot-messages" id="chatbotMessages">
+        <div class="message bot">
+          <div class="message-content">
+            ¡Hola! Soy tu asistente virtual de PeptideShop. ¿En qué puedo ayudarte hoy? Puedes preguntarme sobre productos, dosis, envíos o cualquier otra duda.
+          </div>
+        </div>
+      </div>
+      <div class="chatbot-input">
+        <input type="text" id="chatbotInput" placeholder="Escribe tu mensaje..." aria-label="Escribe tu mensaje">
+        <button id="chatbotSend" aria-label="Enviar mensaje">&#10148;</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/cart.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
