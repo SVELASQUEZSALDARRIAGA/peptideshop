@@ -1352,6 +1352,50 @@ footer {
   gap: 12px;
 }
 
+.lead-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 200px;
+}
+
+.lead-input {
+  padding: 10px 14px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 50px;
+  color: var(--text);
+  font-size: 0.85rem;
+  outline: none;
+  font-family: inherit;
+}
+
+.lead-input:focus {
+  border-color: var(--accent);
+}
+
+.lead-btn {
+  padding: 8px 16px;
+  background: var(--gradient-1);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.lead-btn:hover { transform: scale(1.02); }
+
+.lead-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.lead-feedback { font-size: 0.8rem; }
+
+.lead-feedback.success { color: var(--green); }
+
+.lead-feedback.error { color: var(--red); }
+
 .message {
   display: flex;
   max-width: 85%;

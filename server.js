@@ -84,44 +84,91 @@ app.use('/api/', apiLimiter);
 const products = JSON.parse(fs.readFileSync('./data/products.json', 'utf8'));
 let orders = [];
 
+const DISCLAIMER = '\n\n<i>Nota: Esta información es educativa y basada en literatura científica. PeptideShop recomienda la supervisión de un profesional de la salud. Nuestros productos son para fines de investigación y optimización física.</i>';
+
+const LEAD_CAPTURE = '\n\n📋 <b>¿Necesitas una asesoría más detallada?</b>\nPara brindarte una asesoría técnica personalizada sobre este protocolo, por favor compárteme tu <b>correo electrónico o WhatsApp</b> y un especialista te contactará a la brevedad.';
+
 const botKnowledge = {
-  saludos: ['hola', 'buenas', 'hey', 'hi', 'hello', 'buenos días', 'buenas tardes', 'qué tal'],
-  envio: ['envío', 'envio', 'enviar', 'envían', 'shipping', 'entrega', 'llegar', 'cuánto tarda', 'demora', 'tiempo de envío', 'colombia', 'latinoamérica', 'latam', 'américa latina', 'bogotá', 'medellín'],
-  pago: ['pago', 'pagar', 'tarjeta', 'paypal', 'stripe', 'transferencia', 'bitcoin', 'cripto', 'métodos de pago', 'usdt', 'usdc', 'nequi', 'daviplata', 'bancolombia', 'crypto'],
-  producto: ['producto', 'péptido', 'peptido', 'catalogo', 'tienes', 'venden', 'comprar', 'precio'],
-  dosis: ['dosis', 'dosificación', 'dosificacion', 'cuánto', 'cómo se usa', 'administración', 'administrar', 'inyectar'],
-  efectos: ['efectos', 'efectos secundarios', 'side effects', 'contraindicaciones', 'seguro', 'peligro', 'daño'],
-  almacenamiento: ['almacenar', 'almacenamiento', 'guardar', 'nevera', 'refrigerar', 'congelar', 'conservar'],
-  calidad: ['calidad', 'pureza', 'hplc', 'gmp', 'laboratorio', 'certificado', 'análisis', 'terceros', 'testeado'],
-  devolucion: ['devolución', 'devolucion', 'reembolso', 'reembolsar', 'garantía', 'garantia', 'cambio', 'cambiar'],
-  contacto: ['contacto', 'hablar', 'persona', 'teléfono', 'telefono', 'email', 'correo', 'whatsapp']
+  saludos: ['hola', 'buenas', 'hey', 'hi', 'hello', 'buenos días', 'buenas tardes', 'qué tal', 'buen día', 'buenas noches'],
+  envio: ['envío', 'envio', 'enviar', 'envían', 'shipping', 'entrega', 'llegar', 'cuánto tarda', 'demora', 'tiempo de envío', 'colombia', 'latinoamérica', 'latam', 'américa latina', 'bogotá', 'medellín', 'seguimiento', 'tracking', 'discreto', 'embalaje'],
+  pago: ['pago', 'pagar', 'tarjeta', 'paypal', 'stripe', 'transferencia', 'bitcoin', 'cripto', 'métodos de pago', 'usdt', 'usdc', 'nequi', 'daviplata', 'bancolombia', 'crypto', 'comisión', 'comision', 'fee', 'estable'],
+  producto: ['producto', 'péptido', 'peptido', 'catalogo', 'catálogo', 'tienes', 'venden', 'comprar', 'precio', 'oferta', 'disponible', 'variedad'],
+  dosis: ['dosis', 'dosificación', 'dosificacion', 'cuánto', 'cómo se usa', 'administración', 'administrar', 'inyectar', 'reconstituir', 'agua bacteriostática', 'bac water', 'protocolo', 'ciclo', 'stack', 'apilar'],
+  efectos: ['efectos', 'efectos secundarios', 'side effects', 'contraindicaciones', 'seguro', 'peligro', 'daño', 'tóxico', 'toxicidad', 'colateral', 'reacción', 'adverso'],
+  almacenamiento: ['almacenar', 'almacenamiento', 'guardar', 'nevera', 'refrigerar', 'congelar', 'conservar', 'frigorífico', 'refrigeración', 'estable', 'polvo', 'liofilizado', 'reconstituido'],
+  calidad: ['calidad', 'pureza', 'hplc', 'gmp', 'laboratorio', 'certificado', 'análisis', 'analisis', 'terceros', 'testeado', 'lote', 'coa', 'certificación', 'certificado'],
+  devolucion: ['devolución', 'devolucion', 'reembolso', 'reembolsar', 'garantía', 'garantia', 'cambio', 'cambiar', 'reemplazo', 'satisfecho', 'conforme'],
+  contacto: ['contacto', 'hablar', 'persona', 'teléfono', 'telefono', 'email', 'correo', 'whatsapp', 'asesor', 'especialista', 'ayuda humana']
 };
 
 const botResponses = {
-  saludos: ['¡Hola! Bienvenido a PeptideShop. Soy tu asistente virtual. ¿En qué puedo ayudarte hoy? Puedes preguntarme sobre productos, dosis, envíos o cualquier duda que tengas.',
-    '¡Hola! Encantado de verte. Estoy aquí para resolver tus dudas sobre péptidos. ¿Qué necesitas saber?'],
-  envio: ['🇨🇴 Realizamos envíos a COLOMBIA y toda Latinoamérica.\n\n<b>Colombia:</b> 3-7 días hábiles\n<b>Resto de LATAM:</b> 5-12 días hábiles según el país\n\nTodos los envíos incluyen número de seguimiento y embalaje discreto (sin referencias a péptidos).\n\n🚚 Envío GRATIS en pedidos superiores a 200 USD.',
-    'Los envíos son discretos y completamente anónimos. El embalaje no contiene ninguna referencia al contenido.\n\nAceptamos pagos en:<br>💰 USDT / USDC (TRC20)<br>🏦 Transferencia bancaria Colombia<br>📱 Nequi, Daviplata<br>💳 Tarjetas Visa/Mastercard'],
-  pago: ['💰 <b>Métodos de pago para Colombia y LATAM:</b>\n\n<b>1. Criptomonedas (recomendado)</b>\n• USDT (TRC20) — Stablecoin 1:1 con USD\n• USDC (TRC20/ERC20) — Stablecoin 1:1 con USD\n• Bitcoin (BTC)\n\n<b>2. Transferencia bancaria</b>\n• Bancolombia\n• Nequi\n• Daviplata\n\n<b>3. Tarjetas</b>\n• Visa, Mastercard, American Express (vía Stripe)\n\n💎 <b>Beneficio crypto:</b> Tus USDT/USDC valen exactamente 1 USD cada uno, sin fluctuaciones. Ideal para mantener el valor de tu dinero.'],
-  producto: ['Disponemos de un amplio catálogo de péptidos de alta pureza (>99% HPLC). Algunos de nuestros más vendidos son:\n• BPC-157 (regeneración)\n• Semaglutide (pérdida de peso)\n• Tirzepatide (el más potente para peso)\n• NAD+ (anti-envejecimiento)\n• CJC-1295 + Ipamorelin (GH stack)\n\nTodos nuestros productos son de laboratorio GMP.'],
-  dosis: ['Las dosis varían según el péptido y tus objetivos. En la página de cada producto encontrarás la dosificación recomendada. Como regla general:\n• Péptidos regenerativos: 250-500 mcg/día\n• Péptidos GH: 200-300 mcg/día\n• GLP-1 (Semaglutide/Tirzepatide): iniciar con dosis baja e incrementar gradualmente.\n\n¿Sobre qué péptido necesitas información específica?'],
-  efectos: ['Los péptidos son generalmente bien tolerados cuando se usan correctamente. Los efectos secundarios más comunes suelen ser leves:\n• Enrojecimiento temporal en el lugar de inyección\n• Ligero dolor de cabeza (primeros días)\n• Náuseas leves (especialmente GLP-1)\n\nImportante: Siempre consulta con un profesional de la salud antes de comenzar cualquier ciclo. No excedas las dosis recomendadas.'],
-  almacenamiento: ['La mayoría de nuestros péptidos deben refrigerarse entre 2-8°C. Una vez reconstituidos, se mantienen estables hasta 7-10 días en nevera. No congelar. Mantener protegidos de la luz directa.\n\n• GHK-Cu puede mantenerse a temperatura ambiente\n• NAD+ es estable a temperatura ambiente por 30 días\n\nSiempre revisa las especificaciones de cada producto.'],
-  calidad: ['Todos nuestros péptidos son sintetizados en laboratorios certificados GMP (Good Manufacturing Practices). Cada lote es analizado mediante HPLC y espectrometría de masas, garantizando una pureza >99%.\n\nProporcionamos certificados de análisis (CoA) para cada lote. La calidad es nuestra prioridad número uno.'],
-  devolucion: ['Ofrecemos garantía de satisfacción del 100%. Si no estás conforme con tu pedido:\n• Puedes devolverlo en los primeros 14 días\n• Reembolso completo si el producto está sellado\n• Cambio gratuito por otro producto de igual valor\n• Si hay algún problema con la calidad, te reemplazamos el producto sin coste.'],
-  contacto: ['Puedes contactarnos por los siguientes medios:\n\n📧 Email: info@peptideshop.com\n📱 WhatsApp: +57 300 123 4567\n💬 Chat en vivo: 24/7\n📍 Bogotá, Colombia\n\nEstamos listos para ayudarte con cualquier duda.'],
-  default: ['No estoy seguro de entender tu pregunta. ¿Podrías reformularla? Puedo ayudarte con:\n• Información sobre productos y dosis\n• Envíos y formas de pago\n• Almacenamiento y calidad\n• Devoluciones y garantía\n\nO simplemente escribe "catálogo" para ver todos nuestros productos.']
+  saludos: [
+    '¡Hola! Soy <b>PeptideBot</b>, asistente experto de PeptideShop. Estoy aquí para brindarte información técnica detallada sobre nuestro catálogo de péptidos de alta pureza (>98%). ¿En qué puedo ayudarte hoy? Puedes consultarme sobre productos, dosis, protocolos, envíos o formas de pago.',
+    'Bienvenido a PeptideShop, soy <b>PeptideBot</b> 🤖. Cuento con información detallada de cada producto de nuestro catálogo, incluyendo beneficios, mecanismos de acción y dosificación. ¿Qué te gustaría saber?'
+  ],
+  envio: [
+    '🇨🇴 <b>Logística de envíos PeptideShop</b>\n\n📦 <b>Cobertura:</b> Colombia y toda Latinoamérica\n⏱ <b>Procesamiento:</b> 24 horas hábiles\n🚚 <b>Tiempo de entrega:</b>\n&nbsp;&nbsp;• Colombia: 3-7 días hábiles\n&nbsp;&nbsp;• Resto de LATAM: 5-12 días según país\n🔒 <b>Embalaje discreto:</b> Sin referencias a péptidos en el exterior\n📍 <b>Número de seguimiento:</b> Incluido en todos los pedidos\n\n🚚 <b>Envío GRATIS</b> en pedidos superiores a 200 USD.\n\n💡 <i>Los productos se envían en presentación liofilizada. Requieren reconstitución con agua bacteriostática antes de su uso.</i>',
+    '📦 <b>Política de envíos</b>\n\nTodos nuestros pedidos se procesan en un máximo de 24 horas y se envían con embalaje completamente discreto (sin logotipos ni referencias al contenido). Aceptamos pagos en USDT/USDC, transferencias bancarias Colombia (Nequi, Daviplata, Bancolombia) y tarjetas Visa/Mastercard vía Stripe.\n\n¿Te gustaría conocer el costo de envío a tu ciudad?'
+  ],
+  pago: [
+    '💰 <b>Métodos de pago — Colombia y LATAM</b>\n\n<b>1. Criptomonedas (recomendado)</b>\n• USDT (TRC20) — Paridad 1:1 con USD\n• USDC (TRC20/ERC20) — Paridad 1:1 con USD\n• Bitcoin (BTC)\n✅ Sin comisiones ni fluctuaciones\n\n<b>2. Transferencia bancaria Colombia</b>\n• Bancolombia\n• Nequi\n• Daviplata\n\n<b>3. Tarjetas internacionales</b>\n• Visa, Mastercard, American Express (vía Stripe)\n\n💎 <b>Beneficio crypto:</b> Tus USDT/USDC mantienen su valor exacto en USD, sin volatilidad. Ideal para proteger tu poder adquisitivo.'
+  ],
+  producto: [
+    '🔬 <b>Catálogo PeptideShop</b>\n\nDisponemos de péptidos de alta pureza verificada (>98% HPLC). Todos nuestros productos son sintetizados en laboratorios certificados GMP. Contamos con las siguientes categorías:\n\n🏋️ <b>Pérdida de peso:</b> Tirzepatide, Semaglutide, Retatrutide\n🔄 <b>Regeneración:</b> BPC-157, TB-500\n⏳ <b>Anti-envejecimiento:</b> NAD+, GHK-Cu, Ipamorelin\n📈 <b>Rendimiento:</b> CJC-1295, PT-141, AOD-9604\n\n¿Te interesa alguna categoría o producto en específico?'
+  ],
+  dosis: [
+    '📐 <b>Guía general de dosificación</b>\n\nLas dosis varían según el péptido, tus objetivos y experiencia previa. Como referencia general:\n\n• Péptidos regenerativos (BPC-157, TB-500): 250-500 mcg/día\n• Péptidos GH (CJC-1295, Ipamorelin): 200-300 mcg/día\n• GLP-1 (Semaglutide, Tirzepatide): Iniciar con dosis baja e incrementar gradualmente cada 4 semanas\n• NAD+: 250-1000 mg/ciclo\n\n⚠️ <b>Preparación:</b> Todos los productos se envían liofilizados. Requieren reconstitución con agua bacteriostática (no incluida). Una vez reconstituidos, refrigerar a 2-8°C y usar dentro de 7-10 días.\n\n¿Sobre qué péptido necesitas información específica de dosificación?' + DISCLAIMER,
+    '💉 <b>Protocolo de administración</b>\n\nLa mayoría de nuestros péptidos se administran por vía subcutánea (SC) o intramuscular (IM), dependiendo del compuesto:\n\n• SC: BPC-157, Semaglutide, Tirzepatide, CJC-1295, Ipamorelin\n• IM/SC: TB-500, NAD+\n• Tópico: GHK-Cu (cosmético)\n\n<b>Agua bacteriostática:</b> No incluida. Se requiere para reconstituir el péptido liofilizado. Volumen recomendado: 1-2 mL generalmente.\n\n¿Te gustaría que profundice en algún aspecto?' + DISCLAIMER
+  ],
+  efectos: [
+    '⚠️ <b>Perfil de seguridad y tolerabilidad</b>\n\nLos péptidos son generalmente bien tolerados cuando se usan dentro de los parámetros recomendados. Los efectos adversos reportados son usualmente leves y transitorios:\n\n• Eritema o inflamación local en el sitio de inyección\n• Cefalea leve (primeros días de adaptación)\n• Náuseas transitorias (especialmente con GLP-1)\n• Fatiga inicial en algunos compuestos\n\n⚠️ <b>Importante:</b> Estos productos son para fines de investigación y optimización física. No diagnosticamos patologías ni recetamos tratamientos. Ante cualquier condición de salud crónica, consulta con un profesional de la salud.' + DISCLAIMER
+  ],
+  almacenamiento: [
+    '❄️ <b>Almacenamiento y conservación</b>\n\n<b>Estado liofilizado (polvo):</b>\n• Almacenar a temperatura ambiente (15-25°C)\n• Proteger de la luz directa y la humedad\n• Estable hasta 12 meses en condiciones óptimas\n\n<b>Estado reconstituido (líquido):</b>\n• Refrigeración obligatoria: 2-8°C\n• Estable 7-10 días en nevera\n• NO congelar una vez reconstituido\n• NO exponer a temperaturas superiores a 25°C\n\n<b>Excepciones:</b>\n• GHK-Cu: estable a temperatura ambiente\n• NAD+: estable a temperatura ambiente hasta 30 días\n\n💡 <i>Siempre revisa las especificaciones de cada producto en nuestra tienda.</i>'
+  ],
+  calidad: [
+    '🏆 <b>Control de calidad PeptideShop</b>\n\nTodos nuestros péptidos son sintetizados en laboratorios certificados bajo Buenas Prácticas de Manufactura (GMP). Implementamos estrictos controles de calidad:\n\n✅ Pureza >98% verificada por HPLC\n✅ Espectrometría de masas (MS) para verificación de peso molecular\n✅ Certificado de Análisis (CoA) disponible por lote\n✅ Cadena de suministro auditada\n✅ Embalaje con control de temperatura\n\n📄 <b>¿Quieres ver el CoA de un lote específico?</b> Solicítalo a tu asesor y te lo compartiremos.\n\nNuestro diferencial: transparencia total en la calidad de cada producto.'
+  ],
+  devolucion: [
+    '🔄 <b>Política de devoluciones y garantía</b>\n\nRespaldo tu compra con nuestra garantía de satisfacción:\n\n• <b>14 días</b> para devolución desde la recepción\n• Reembolso completo si el producto está sellado y sin abrir\n• Cambio gratuito por otro producto de igual valor\n• Reemplazo sin costo si hay algún problema de calidad verificado\n\n📱 ¿Tienes un problema con tu pedido? Contáctanos vía WhatsApp al +57 300 123 4567 y lo resolveremos de inmediato.'
+  ],
+  contacto: [
+    '📬 <b>Canales de contacto</b>\n\nEstamos disponibles para resolver cualquier duda:\n\n📧 Email: info@peptideshop.com\n📱 WhatsApp: +57 300 123 4567\n💬 Chat web: 24/7 (estoy aquí)\n📍 Bogotá, Colombia\n\n<b>Horario de atención:</b>\nLunes a viernes: 8:00 AM - 6:00 PM\nSábados: 9:00 AM - 2:00 PM\n\n¿En qué más puedo ayudarte?'
+  ],
+  asesoria: [
+    '📋 <b>¿Buscas una asesoría personalizada?</b>\n\nSi necesitas ayuda con un protocolo complejo, un stack personalizado de múltiples péptidos, o tienes problemas con un pedido existente, puedo derivarte con un especialista.' + LEAD_CAPTURE + '\n\nMientras tanto, ¿te gustaría conocer más sobre algún producto en específico?'
+  ],
+  protocolo: [
+    '🔬 <b>Protocolos personalizados</b>\n\nDiseñar un protocolo efectivo requiere considerar múltiples variables: objetivos específicos, experiencia previa, tolerancia individual y posible interacción entre compuestos.' + LEAD_CAPTURE + '\n\n¿Te gustaría mientras tanto explorar nuestro catálogo de productos?'
+  ],
+  default: [
+    'Soy <b>PeptideBot</b>, tu asistente técnico de PeptideShop. Puedo ayudarte con:\n\n🔬 Información detallada de productos y sus mecanismos de acción\n📐 Dosis y protocolos de administración\n📦 Envíos discretos a Colombia y LATAM\n💰 Métodos de pago: USDT/USDC, transferencias, tarjetas\n❄️ Almacenamiento y conservación\n🏆 Certificaciones de calidad y pureza\n\n¿Sobre qué tema te gustaría consultarme?'
+  ]
 };
 
 function getBotResponse(message) {
   const msg = message.toLowerCase().trim();
 
-  if (msg.includes('catálogo') || msg.includes('catalogo') || msg.includes('productos') || msg.includes('ver todo')) {
-    return '¡Claro! Aquí un resumen de nuestro catálogo 🇨🇴\n\n<b>Más vendidos:</b>\n• Tirzepatide - 149.99 USD (pérdida de peso)\n• Semaglutide - 129.99 USD (pérdida de peso)\n• BPC-157 - 59.99 USD (regeneración)\n• NAD+ - 99.99 USD (anti-envejecimiento)\n• GHK-Cu - 44.99 USD (estética)\n\n💎 Todos los precios en USD. Aceptamos USDT/USDC al valor de 1:1.\n\nUsa el buscador para filtrar por categoría o nombre. ¿Te interesa alguno en específico?';
+  if (msg.includes('catálogo') || msg.includes('catalogo') || msg.includes('ver todo') || msg.includes('productos disponibles')) {
+    return '📋 <b>Catálogo completo PeptideShop</b>\n\n<b>🏆 Más vendidos:</b>\n• <b>Tirzepatide</b> - 149.99 USD (pérdida de peso)\n• <b>Semaglutide</b> - 129.99 USD (pérdida de peso)\n• <b>BPC-157</b> - 59.99 USD (regeneración)\n• <b>NAD+</b> - 99.99 USD (anti-envejecimiento)\n• <b>GHK-Cu</b> - 44.99 USD (estética)\n• <b>CJC-1295</b> - 69.99 USD (GH secretagogo)\n• <b>Ipamorelin</b> - 54.99 USD (GH secretagogo)\n• <b>TB-500</b> - 74.99 USD (regeneración)\n• <b>AOD-9604</b> - 64.99 USD (pérdida de grasa)\n• <b>PT-141</b> - 49.99 USD (rendimiento)\n• <b>Retatrutide</b> - 169.99 USD (pérdida de peso)\n• <b>MOTS-c</b> - 89.99 USD (metabolismo)\n\n💎 Todos los precios en USD. Aceptamos USDT/USDC al valor 1:1.\n\n¿Te interesa algún producto en específico? Puedo darte información detallada sobre beneficios, dosis y protocolo.';
   }
 
-  if (msg.includes('gracias') || msg.includes('thank')) {
-    return '¡De nada! Si tienes más preguntas, aquí estoy. ¡Que tengas un excelente día! 😊';
+  if (msg.includes('gracias') || msg.includes('thank') || msg.includes('gracias totales')) {
+    return '¡Por nada! Recuerda que estoy aquí para resolver cualquier duda técnica. Si en el futuro necesitas asesoría sobre protocolos más complejos, no dudes en consultarme. ¡Éxito en tus objetivos!' + DISCLAIMER;
+  }
+
+  const asesoriaKeywords = ['protocolo personalizado', 'stack', 'ciclo completo', 'asesoría', 'ayuda personalizada', 'contactar experto', 'problema con pedido', 'cambio producto', 'devolver'];
+  const needsLeadCapture = asesoriaKeywords.some(kw => msg.includes(kw));
+  if (needsLeadCapture) {
+    const responses = botResponses.asesoria;
+    return responses[Math.floor(Math.random() * responses.length)];
+  }
+
+  const protocoloKeywords = ['combinar', 'combinación', 'apilar', 'stack', 'múltiples', 'varios péptidos', 'personalizado', 'larga duración'];
+  const needsProtocolHelp = protocoloKeywords.some(kw => msg.includes(kw));
+  if (needsProtocolHelp) {
+    const responses = botResponses.protocolo;
+    return responses[Math.floor(Math.random() * responses.length)];
   }
 
   let bestCategory = null;
@@ -137,20 +184,22 @@ function getBotResponse(message) {
 
   if (bestCategory && maxMatches > 0) {
     const responses = botResponses[bestCategory];
-    return responses[Math.floor(Math.random() * responses.length)];
+    let response = responses[Math.floor(Math.random() * responses.length)];
+    return response;
   }
 
   for (const product of products) {
     if (msg.includes(product.name.toLowerCase()) || msg.includes(product.fullName.toLowerCase())) {
-      return `El <b>${product.name}</b> (${product.fullName}) es uno de nuestros productos estrella.\n\n<b>Precio:</b> ${product.price} USD (paga con USDT/USDC al 1:1)\n<b>Descripción:</b> ${product.description}\n\n<b>Beneficios principales:</b>\n${product.benefits.slice(0, 3).map(b => `• ${b}`).join('\n')}\n\n<b>Dosificación:</b> ${product.usage}\n\n¿Te gustaría agregarlo a tu carrito o tienes más preguntas sobre este producto?`;
+      return `🔬 <b>${product.name}</b> (${product.fullName})\n\n📋 <b>Descripción:</b> ${product.description}\n\n✅ <b>Beneficios principales:</b>\n${product.benefits.map((b, i) => `${i + 1}. ${b}`).join('\n')}\n\n📐 <b>Dosificación estándar:</b> ${product.usage}\n\n💰 <b>Precio:</b> ${product.price} USD (paga con USDT/USDC al 1:1)\n\n💡 <i>Producto liofilizado. Requiere reconstitución con agua bacteriostática (no incluida). Una vez reconstituido, refrigerar a 2-8°C.</i>\n\n¿Te gustaría agregarlo a tu carrito o necesitas más información sobre este producto?` + DISCLAIMER;
     }
   }
 
   if (msg.length < 5) {
-    return 'Dime, ¿en qué puedo ayudarte? Puedes preguntarme sobre productos, dosis, envíos, pagos... ¡lo que necesites!';
+    return '¡Hola! Soy <b>PeptideBot</b>. ¿En qué puedo ayudarte? Puedes preguntarme sobre:\n\n🔬 Productos y sus beneficios\n📐 Dosis y protocolos\n📦 Envíos a Colombia y LATAM\n💰 Pagos en USDT/USDC\n❄️ Almacenamiento\n\n¿Qué te gustaría saber?';
   }
 
-  return botResponses.default[Math.floor(Math.random() * botResponses.default.length)];
+  const defaultResponses = botResponses.default;
+  return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
 }
 
 app.get('/api/config', (req, res) => {
@@ -277,6 +326,24 @@ app.post('/api/contact', contactLimiter, (req, res) => {
   if (!isValidEmail(email)) return res.status(400).json({ error: 'Email inválido' });
   console.log(`Contact: ${name} (${email}): ${message}`);
   res.json({ success: true, message: 'Mensaje recibido. Te responderemos pronto.' });
+});
+
+const leads = [];
+
+app.post('/api/lead-capture', contactLimiter, (req, res) => {
+  const contact = sanitize(req.body.contact || '');
+  const message = sanitize(req.body.message || '');
+  if (!contact) return res.status(400).json({ error: 'Correo o WhatsApp requerido' });
+  const lead = {
+    id: uuidv4(),
+    contact,
+    message,
+    ip: req.ip,
+    createdAt: new Date().toISOString()
+  };
+  leads.push(lead);
+  if (!isProd) console.log(`Lead captured: ${contact} "${message}"`);
+  res.json({ success: true, message: 'Gracias por tu interés. Un especialista te contactará a la brevedad.' });
 });
 
 app.get('*', (req, res) => {
