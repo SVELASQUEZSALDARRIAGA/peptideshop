@@ -231,10 +231,13 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Error interno del servidor' });
 });
 
-app.listen(PORT, () => {
-  console.log(`\n======================================`);
-  console.log(`  PeptideShop - Servidor iniciado`);
-  console.log(`  URL: http://localhost:${PORT}`);
-  console.log(`  Stripe: ${process.env.STRIPE_PUBLISHABLE_KEY ? 'Configurado' : 'No configurado'}`);
-  console.log(`======================================\n`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`\n======================================`);
+    console.log(`  PeptideShop - Servidor iniciado`);
+    console.log(`  URL: http://localhost:${PORT}`);
+    console.log(`  Stripe: ${process.env.STRIPE_PUBLISHABLE_KEY ? 'Configurado' : 'No configurado'}`);
+    console.log(`======================================\n`);
+  });
+}
+module.exports = app;
