@@ -1,6 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const session = require('express-session');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const fs = require('fs');
@@ -9,20 +11,43 @@ const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const isProd = process.env.NODE_ENV === 'production' || !!process.env.VERCEL;
 
-app.use(cors());
-app.use(express.json());
-app.use(session({
-  secret: process.env.SESSION_SECRET || 'peptide-secret',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 }
+app.use(cors(isProd ? {
+  origin: process.env.ORIGIN || true,
+  methods: ['GET', 'POST'],
+  maxAge: 86400
+} : {}));
+
+app.use(express.json({ limit: '10kb' }));
+app.use(helmet({
+  contentSecurityPolicy: false,
+  crossOriginEmbedderPolicy: false
 }));
 
-const ACCESS_TOKEN = process.env.ACCESS_TOKEN || 'Pep2026';
+app.use((req, res, next) => {
+  if (isProd && req.headers['x-forwarded-proto'] !== 'https' && req.headers.host) {
+    return res.redirect('https://' + req.headers.host + req.url);
+  }
+  next();
+});
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: isProd, httpOnly: true, sameSite: 'lax', maxAge: 24 * 60 * 60 * 1000 }
+}));
+
+const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
+
+if (!ACCESS_TOKEN) {
+  console.warn('⚠️  ADVERTENCIA: ACCESS_TOKEN no configurado. La página será accesible sin restricción.');
+}
 
 app.use((req, res, next) => {
   if (req.path.startsWith('/api/')) return next();
+  if (!ACCESS_TOKEN) return next();
   if (req.session.authorized) return next();
   if (req.query.token === ACCESS_TOKEN) {
     req.session.authorized = true;
@@ -32,6 +57,29 @@ app.use((req, res, next) => {
 });
 
 app.use(express.static('public'));
+
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: { error: 'Demasiadas solicitudes. Intenta de nuevo en 15 minutos.' }
+});
+
+const contactLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 5,
+  message: { error: 'Has superado el límite de mensajes. Intenta de nuevo en 1 hora.' }
+});
+
+function sanitize(str) {
+  if (typeof str !== 'string') return '';
+  return str.replace(/[<>]/g, '').trim().slice(0, 2000);
+}
+
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+app.use('/api/', apiLimiter);
 
 const products = JSON.parse(fs.readFileSync('./data/products.json', 'utf8'));
 let orders = [];
@@ -131,8 +179,9 @@ app.get('/api/products/category/:category', (req, res) => {
 });
 
 app.post('/api/chat', (req, res) => {
-  const { message } = req.body;
+  const message = sanitize(req.body.message || '');
   if (!message) return res.status(400).json({ error: 'Mensaje requerido' });
+  if (message.length > 500) return res.status(400).json({ error: 'Mensaje demasiado largo' });
   const response = getBotResponse(message);
   res.json({ response, timestamp: new Date().toISOString() });
 });
@@ -140,13 +189,17 @@ app.post('/api/chat', (req, res) => {
 app.post('/api/create-payment-intent', async (req, res) => {
   try {
     const { items, shipping } = req.body;
+    if (!items || !Array.isArray(items) || items.length === 0) {
+      return res.status(400).json({ error: 'Carrito inválido o vacío' });
+    }
 
     const total = items.reduce((sum, item) => {
+      if (!item.id || !item.quantity || item.quantity < 1) return sum;
       const product = products.find(p => p.id === item.id);
-      return sum + (product ? product.price * item.quantity : 0);
+      return sum + (product ? product.price * Math.min(item.quantity, 99) : 0);
     }, 0);
 
-    if (total === 0) return res.status(400).json({ error: 'Carrito vacío' });
+    if (total <= 0) return res.status(400).json({ error: 'Carrito vacío' });
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount: Math.round(total * 100),
@@ -206,18 +259,22 @@ app.get('/api/orders/:id', (req, res) => {
   res.json(order);
 });
 
-app.post('/api/newsletter', (req, res) => {
-  const { email } = req.body;
+app.post('/api/newsletter', contactLimiter, (req, res) => {
+  const email = sanitize(req.body.email || '');
   if (!email) return res.status(400).json({ error: 'Email requerido' });
+  if (!isValidEmail(email)) return res.status(400).json({ error: 'Email inválido' });
   console.log(`Newsletter signup: ${email}`);
   res.json({ success: true, message: '¡Gracias por suscribirte!' });
 });
 
-app.post('/api/contact', (req, res) => {
-  const { name, email, message } = req.body;
+app.post('/api/contact', contactLimiter, (req, res) => {
+  const name = sanitize(req.body.name || '');
+  const email = sanitize(req.body.email || '');
+  const message = sanitize(req.body.message || '');
   if (!name || !email || !message) {
     return res.status(400).json({ error: 'Todos los campos son requeridos' });
   }
+  if (!isValidEmail(email)) return res.status(400).json({ error: 'Email inválido' });
   console.log(`Contact: ${name} (${email}): ${message}`);
   res.json({ success: true, message: 'Mensaje recibido. Te responderemos pronto.' });
 });

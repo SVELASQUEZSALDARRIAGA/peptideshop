@@ -1,5 +1,6 @@
 node_modules/
 .env
+.env.local
 .DS_Store
 *.log
 launcher.vbs
@@ -7,3 +8,5 @@ start.ps1
 start_server.bat
 run.ps1
 start.js
+
+.vercel
